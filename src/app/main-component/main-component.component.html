@@ -1,0 +1,95 @@
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Rapipay</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="container-fluid" id="navbarSupportedContent">
+            <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{dropdownValue}}</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="clientAction()">Client</button>
+                    <button ngbDropdownItem (click)="agentAction()">Agent</button>
+                </div>
+            </div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search By ID" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div>
+        <table class="table table-hover" style="position:relative;top:100%;height: 20%;">
+            <thead>
+                <tr *ngIf="a.length!=0">
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Transaction ID</th>
+                    <th scope="col">Balence</th>
+                    <th scope="col">Transaction Amount</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>
+            <tbody *ngIf="dropdownValue=='Client'">
+                <tr *ngFor="let product of a;let i=index" [attr.data-index]="i">
+                    <td>{{product.clientID}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.state}}</td>
+                    <td>{{product.transactionID}}</td>
+                    <td>{{product.balence}}</td>
+                    <td>{{product.transactionAmount}}</td>
+                    <td><button type="button" class="btn btn-link1" (click)="editForm(product,i)">Edit</button></td>
+                    <td><button type="button" class="btn btn-link2" (click)="httpDelete(product,i)">Delete</button></td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="dropdownValue=='Agent'">
+                <tr *ngFor="let product of a;let i=index" [attr.data-index]="i">
+                    <td>{{product.agentID}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.state}}</td>
+                    <td>{{product.transactionID}}</td>
+                    <td>{{product.balence}}</td>
+                    <td>{{product.transactionAmount}}</td>
+                    <td><button type="button" class="btn btn-link1" (click)="editForm(product,i)">Edit</button></td>
+                    <td><button type="button" class="btn btn-link2">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popup">
+        <div class="close-btn" (click)="closeForm()">&times;</div>
+        <div class="form">
+            <form #productform="ngForm" (ngSubmit)="httpPut(productform)">
+                <h2>Edit User</h2>
+            <div class="form-element">
+                <label for="email">Name</label>
+                <input type="text" name="name" placeholder="Enter Name" value="{{name}}" required ngModel>
+            </div>
+            <div class="form-element">
+                <label for="email">State</label>
+                <input type="text" name="state" placeholder="Enter State" value="{{state}}" required ngModel>
+            </div>
+            <div class="form-element">
+                <label for="email">Transaction ID</label>
+                <input type="text" name="tid" placeholder="Enter Transaction ID" value="{{tid}}" required ngModel>
+            </div>
+            <div class="form-element">
+                <label for="email">Balence</label>
+                <input type="text" name="balence" placeholder="Enter Balence" value="{{balence}}" required ngModel>
+            </div>
+            <div class="form-element">
+                <label for="email">Transaction Amount</label>
+                <input type="text" name="amt" placeholder="Enter Name" value="{{tAmt}}" required ngModel>
+            </div>
+            <div class="form-element">
+                <input type="submit">
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
